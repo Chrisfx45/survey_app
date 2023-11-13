@@ -1,0 +1,179 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: rgb(247, 247, 247);
+}
+
+br {
+    display: block;
+    margin: 20px ;
+}
+
+
+
+/* LOGIN FUNCTIONS (DIV: MAIN) */
+.main {
+    
+    /* Centering the to center */
+    background-color: white;
+
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    margin-top: 30vh;
+    margin-right: auto;
+    margin-left: auto;
+
+    width: 600px;
+
+    border: 1px solid rgba(68, 68, 68, 0.225);
+    box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
+    border-radius: 8px;
+}
+
+.main label:nth-child(1) {
+    margin-top: 20px;
+}
+
+.buttons {
+    margin-top: 25px;
+    padding-bottom: 20px;
+}
+
+.submit-btn {
+    margin-right: 8px;
+}
+
+.login-btn{
+    margin-left: 8px;
+}
+.save-btn{
+    margin-left: 8px;
+}
+.next-btn{
+    margin-left: 8px;
+}
+
+
+
+/* FIRST SET of questions */
+.firstSet {
+    background-color: white;
+
+    margin-top: 50px;
+    margin-bottom: 50px;
+    margin-right: auto;
+    margin-left: auto;
+    border: 1px solid rgba(68, 68, 68, 0.225);
+    box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
+    border-radius: 8px;
+
+    width: 800px;
+}
+
+.firstSet p {
+    margin: 10px;
+}
+
+.firstSet input {
+    margin-left: 10px;
+    margin-bottom: 20px;
+}
+
+.firstSet p:nth-child(5) {
+    padding-bottom: 15px;
+    border-bottom: 1px solid black;
+}
+
+/* Second set: empty */
+
+
+
+/* THIRD SET: slide container */
+.slidecontainer {
+    display: none;
+    background-color: white;
+
+    margin-top: 50px;
+    margin-bottom: 50px;
+    margin-right: auto;
+    margin-left: auto;
+    border: 1px solid rgba(68, 68, 68, 0.225);
+    box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
+    border-radius: 8px;
+
+    width: 800px;
+}
+.test{
+
+    background-color: white;
+
+    margin-top: 50px;
+    margin-bottom: 50px;
+    margin-right: auto;
+    margin-left: auto;
+    border: 1px solid rgba(68, 68, 68, 0.225);
+    box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
+    border-radius: 8px;
+
+    width: 800px;
+}
+
+.slidecontainer p, .slidecontainer label {
+    margin: 10px;
+}
+
+.slidecontainer p:nth-child(1) {
+    padding-bottom: 15px;
+    border-bottom: 1px solid black;
+}
+
+.slidecontainer input {
+    margin-left: 10px;
+    margin-bottom: 20px;
+}
+
+.slidecontainer button {
+    margin-bottom: 20px;
+}
+
+
+.slider :hover{
+    opacity: 1;
+}
+
+.slider::-webkit-slider-thumb{
+    -webkit-appearance: none;
+    appearance:none ;
+    width: 60%;
+    height: 25px;
+    border-radius: 40%;
+    background: gray;
+    cursor: pointer;
+}
+
+.slider::-moz-range-thumb{
+    width: 60%;
+    height: 25px;
+    border-radius: 40%;
+    background: gray;
+    cursor: pointer;
+}
+#1stp{
+    display: flex;
+}
+#2ndp {
+    display: none;
+}
+#3rdp{
+    display: none;
+}
+#test{
+    display: none;
+}
+#video{
+    display: none;
+}
