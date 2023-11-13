@@ -1,89 +1,360 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Welcome to Firebase Hosting</title>
+<html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Firebase JS</title>
+  <link rel="stylesheet" href="index.css">
 
-    <!-- update the version number as needed -->
-    <script defer src="/__/firebase/10.6.0/firebase-app-compat.js"></script>
-    <!-- include only the Firebase features as you need -->
-    <script defer src="/__/firebase/10.6.0/firebase-auth-compat.js"></script>
-    <script defer src="/__/firebase/10.6.0/firebase-database-compat.js"></script>
-    <script defer src="/__/firebase/10.6.0/firebase-firestore-compat.js"></script>
-    <script defer src="/__/firebase/10.6.0/firebase-functions-compat.js"></script>
-    <script defer src="/__/firebase/10.6.0/firebase-messaging-compat.js"></script>
-    <script defer src="/__/firebase/10.6.0/firebase-storage-compat.js"></script>
-    <script defer src="/__/firebase/10.6.0/firebase-analytics-compat.js"></script>
-    <script defer src="/__/firebase/10.6.0/firebase-remote-config-compat.js"></script>
-    <script defer src="/__/firebase/10.6.0/firebase-performance-compat.js"></script>
-    <!-- 
-      initialize the SDK after all desired features are loaded, set useEmulator to false
-      to avoid connecting the SDK to running emulators.
-    -->
-    <script defer src="/__/firebase/init.js?useEmulator=true"></script>
+<script type="module">
+  // Import the functions you need from the SDKs you need
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/9.13.0/firebase-app.js";
+  import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword} from "https://www.gstatic.com/firebasejs/9.13.0/firebase-auth.js";
+  import { getFirestore, collection, doc, getDoc, addDoc, getCountFromServer, deleteDoc } from "https://www.gstatic.com/firebasejs/9.13.0/firebase-firestore.js";
+  // TODO: Add SDKs for Firebase products that you want to use
+  // https://firebase.google.com/docs/web/setup#available-libraries
 
-    <style media="screen">
-      body { background: #ECEFF1; color: rgba(0,0,0,0.87); font-family: Roboto, Helvetica, Arial, sans-serif; margin: 0; padding: 0; }
-      #message { background: white; max-width: 360px; margin: 100px auto 16px; padding: 32px 24px; border-radius: 3px; }
-      #message h2 { color: #ffa100; font-weight: bold; font-size: 16px; margin: 0 0 8px; }
-      #message h1 { font-size: 22px; font-weight: 300; color: rgba(0,0,0,0.6); margin: 0 0 16px;}
-      #message p { line-height: 140%; margin: 16px 0 24px; font-size: 14px; }
-      #message a { display: block; text-align: center; background: #039be5; text-transform: uppercase; text-decoration: none; color: white; padding: 16px; border-radius: 4px; }
-      #message, #message a { box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24); }
-      #load { color: rgba(0,0,0,0.4); text-align: center; font-size: 13px; }
-      @media (max-width: 600px) {
-        body, #message { margin-top: 0; background: white; box-shadow: none; }
-        body { border-top: 16px solid #ffa100; }
+  // Your web app's Firebase configuration
+  const firebaseConfig = {
+    apiKey: "AIzaSyA7Uszkde-IFiHNBydK2-S2whYRteHFSuM",
+    authDomain: "surveyv2.firebaseapp.com",
+    databaseURL: "https://surveyv2-default-rtdb.asia-southeast1.firebasedatabase.app",
+    projectId: "surveyv2",
+    storageBucket: "surveyv2.appspot.com",
+    messagingSenderId: "517468960478",
+    appId: "1:517468960478:web:e745d6b987325f4f28744f"
+  };
+
+  // Initialize Firebase
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth();
+  const db = getFirestore(app);
+
+  
+
+
+
+  var inputval;
+  var inputval1;
+  var inputval2;
+
+//   function register (){
+//       const email = document.getElementById('email').value
+//       const password = document.getElementById('password').value
+
+//       createUserWithEmailAndPassword(auth, email, password)
+//       .then((userCredentials) => {
+
+//           const user = userCredentials.user
+//           console.log(userCredentials.user)
+//           console.log("new user created")
+//        })
+
+//        .catch((error) => {
+//           const errorCode = error.code;
+//           alert(error.message)
+//           console.log(error.code)
+//           console.log(error.message)
+//        })
+//   };
+  function random_item(items){
+      return items[Math.floor(Math.random()*items.length)];
+  }
+  async function login () {
+    //const fruits = [];
+    //   fruits.push('https://www.youtube.com/embed/jX9C32YxdK4','https://www.youtube.com/embed/Fd85ziqd798','https://www.youtube.com/embed/sOAa4udjpnk','https://www.youtube.com/embed/5KcK_Dk7MQM',
+    //   'https://www.youtube.com/embed//TieIYmoFOkw', 'https://www.youtube.com/embed/ddBoKFNrGbM','https://www.youtube.com/embed/ddBoKFNrGbM/', 'https://www.youtube.com/embed/ZmDMF98aCtw');
+    //   var vid = random_item(fruits);
+    const coll = collection(db, "video");
+    const snapshot = await getCountFromServer(coll);
+    //console.log('count: ', snapshot.data().count)
+    var count = snapshot.data().count
+    console.log('count: ', count)
+
+    var index = (count -1)
+    var str = index.toString()
+    const docRef = doc(db, "video", str)
+    const docSnap = await getDoc(docRef);
+    console.log(docSnap.data().Emo)
+    console.log(docSnap.data().video)
+    var vid = docSnap.data().video
+      const email = document.getElementById('email').value
+      const password = document.getElementById('password').value
+      var w = document.getElementById("video");
+      w.src = vid;
+
+      var x = document.getElementById("1stp");
+      var y = document.getElementById("2ndp");
+      var z = document.getElementById("3rdp");
+
+
+      signInWithEmailAndPassword(auth, email, password)
+      .then((userCredentials) => {
+
+          const user = userCredentials.user
+          console.log(userCredentials.user)
+          console.log("logged in")
+          x.style.display = "none"
+          w.style.display = "block"
+          y.style.display = "block"
+
+       })
+
+       .catch((error) => {
+          const errorCode = error.code;
+          alert(error.message)
+          console.log(error.code)
+          console.log(error.message)
+       })
+    
+  };
+  function show(){
+      var y = document.getElementById("2ndp");
+      var z = document.getElementById("3rdp");
+      var t = document.getElementById("test")
+      y.style.display = "none"
+      t.style.display = "block"
+      setTimeout(show1, 600000)
+
+  }    
+  function show1(){
+      var t = document.getElementById("test");
+      var z = document.getElementById("3rdp");
+      t.style.display = "none"
+      z.style.display = "block"
+  }
+
+
+
+  async function write(inputval, inputval1, inputval2){
+
+    const coll = collection(db, "video");
+    const snapshot = await getCountFromServer(coll);
+    //console.log('count: ', snapshot.data().count)
+    var count = snapshot.data().count
+    console.log('count: ', count)
+
+    var index = (count -1)
+    var str = index.toString()
+    const docRef = doc(db, "video", str)
+    const docSnap = await getDoc(docRef);
+
+      const email = document.getElementById('email').value
+      // const user = auth.currentUser;
+      // var uid = user.uid;
+       var inputval = document.getElementById("myrange").value
+       var inputval1 = document.getElementById("myrange1").value
+       var inputval2 = document.getElementById("myrange2").value
+       var inputval3 = document.getElementById("myrange3").value
+       var inputval4 = document.getElementById("myrange4").value
+       var inputval5 = document.getElementById("myrange5").value
+
+    //   var fp = document.getElementById("1st").value
+    //   var sp = document.getElementById("2nd").value
+    //   var tp = document.getElementById("3rd").value
+    //   var fop = document.getElementById("4th").value
+    //   var fip = document.getElementById("5th").value
+    //   var sip = document.getElementById("6th").value
+
+
+      var anwr1 = document.getElementById("answer1").value
+      var anwr2 = document.getElementById("answer2").value
+      var anwr3 = document.getElementById("answer3").value
+      
+      var emotion = docSnap.data().Emo
+
+      var w = document.getElementById("video")
+      var x = document.getElementById("1stp");
+      var y = document.getElementById("2ndp");
+      var z = document.getElementById("3rdp");
+
+
+      if (anwr1 != "2"){
+          var test1 = "INCORRECT"
+      }else{
+          var test1 = "CORRECT"
       }
-    </style>
-  </head>
-  <body>
-    <div id="message">
-      <h2>Welcome</h2>
-      <h1>Firebase Hosting Setup Complete</h1>
-      <p>You're seeing this because you've successfully setup Firebase Hosting. Now it's time to go build something extraordinary!</p>
-      <a target="_blank" href="https://firebase.google.com/docs/hosting/">Open Hosting Documentation</a>
-    </div>
-    <p id="load">Firebase SDK Loading&hellip;</p>
-
-    <script>
-      document.addEventListener('DOMContentLoaded', function() {
-        const loadEl = document.querySelector('#load');
-        // // 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
-        // // The Firebase SDK is initialized and available here!
-        //
-        // firebase.auth().onAuthStateChanged(user => { });
-        // firebase.database().ref('/path/to/ref').on('value', snapshot => { });
-        // firebase.firestore().doc('/foo/bar').get().then(() => { });
-        // firebase.functions().httpsCallable('yourFunction')().then(() => { });
-        // firebase.messaging().requestPermission().then(() => { });
-        // firebase.storage().ref('/path/to/ref').getDownloadURL().then(() => { });
-        // firebase.analytics(); // call to activate
-        // firebase.analytics().logEvent('tutorial_completed');
-        // firebase.performance(); // call to activate
-        //
-        // // 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
-
-        try {
-          let app = firebase.app();
-          let features = [
-            'auth', 
-            'database', 
-            'firestore',
-            'functions',
-            'messaging', 
-            'storage', 
-            'analytics', 
-            'remoteConfig',
-            'performance',
-          ].filter(feature => typeof app[feature] === 'function');
-          loadEl.textContent = `Firebase SDK loaded with ${features.join(', ')}`;
-        } catch (e) {
-          console.error(e);
-          loadEl.textContent = 'Error loading the Firebase SDK, check the console.';
-        }
+      if (anwr2 != "198"){
+          var test2 = "INCORRECT"
+      }else{
+          var test2 = "CORRECT"
+      }
+      if (anwr3 != "-12"){
+          var test3 = "INCORRECT"
+      }else{
+          var test3 = "CORRECT"
+      }
+      
+      
+      try{
+      await addDoc(collection(db, "users2"), {
+          Email : email,
+          Aq : inputval,
+          Aq1 : inputval1,
+          Aq2 : inputval2,
+          Aq3 : inputval3,
+          Aq4 : inputval4,
+          Aq5 : inputval5,
+        //   first : fp,
+        //   Second : sp,
+        //   third : tp,
+        //   fourth: fop,
+        //   fifth: fip,
+        //   sixth: sip,
+          test1: test1,
+          test2: test2,
+          test3: test3,
+          emo: emotion,
+          A1 : anwr1,
+          A2 : anwr2,
+          A3 : anwr3
       });
-    </script>
-  </body>
-</html>
+      console.log("data saved")
+      w.style.display = "none"
+      y.style.display = "none"
+      z.style.display = "none"
+      console.log(anwr1)
+      console.log(anwr2)
+
+       }catch (e) {
+          console.error("Error adding document: ", e);
+      }
+      deleteDoc(doc(db, "video", str));
+  }
+
+
+  document.getElementById('sign-in').addEventListener('click', login, false);
+//   document.getElementById('sign-up').addEventListener('click', register, false);
+  document.getElementById('submit').addEventListener('click', write, false);
+  document.getElementById('Next').addEventListener('click', show, false);
+  document.getElementById('Next1').addEventListener('click', show1, false);
+</script>
+
+</head>
+
+<body>
+  <div class="main" id="1stp">
+      <label>The goal of this experiment is to asses the change of workload during the lesson.</label>
+      <label>In this experiment you will be asked to watch a mathematics class and take a test then complete survey about the lesson.</label>
+      <label>The test will be conducted a 10 minutes time limit</label>
+      <label>Do not worry about how you answered the test since it will be check again later on.</label>
+      <label>Participants might need a basic understanding of integral and english, and if needed some papers and pen.</label><br>              
+
+      <div>
+          <label>Email</label>
+          <input name="email" placeholder="Email" id="email" type="email">
+      </div>
+      <div>
+          <label>Password</label>
+          <input name="password" placeholder="Password" id="password" type="password">
+      </div>
+
+      <div class="buttons">
+          <!-- <button class="submit-btn" id="sign-up">Sign Up</button> -->
+
+          <button class="login-btn" id="sign-in">Sign In</button>
+      </div>
+
+  </div><br>
+  <div class="slidecontainer" id="2ndp">
+      <!-- <p>Based on your opinion, please choose the most suitable answer</p>
+      <p>It is easy for me to focus my attention during tests and lessons.</p>
+      <p align="center">  neither</p>
+      <p align="center">dissagree<input type="range" min="1" max="3" value="2" class="slider" id="1st">agree</p>
+
+      <label>I often have more than enough time to complete and comperhend mathematics lessons.</label>
+      <p align="center">  neither</p>
+      <p align="center">dissagree<input type="range" min="1" max="3" value="2" class="slider" id="2nd">agree</p>
+
+      <label>I often feel  confident during the math lessons.</label>
+      <p align="center">  neither</p>
+      <p align="center">dissagree<input type="range" min="1" max="3" value="2" class="slider" id="3rd">agree</p>
+
+      <label>I sometimes find mathematics lessons are difficult.</label>
+      <p align="center">  neither</p>
+      <p align="center">dissagree<input type="range" min="1" max="3" value="2" class="slider" id="4th">agree</p>
+
+      <label>I feel frustrated by the content of the materials during tests.</label>
+      <p align="center">  neither</p>
+      <p align="center">dissagree<input type="range" min="1" max="3" value="2" class="slider" id="5th">agree</p>
+
+      <label>I often feel rushed to submit or complete classwork.</label>
+      <p align="center">  neither</p>
+      <p align="center">dissagree<input type="range" min="1" max="3" value="2" class="slider" id="6th">agree</p> -->
+
+      <p>Please watch the video first before pressing next.</p>
+
+
+      <button class="next-btn" id="Next">Next</button>
+  </div>
+  <div class="video">
+      <p align="center">
+      <iframe type="text/html" width="853" height="480" src="" frameborder="0" id="video"></iframe>
+      </p>
+  </div>
+  
+  <div class="test" id="test">
+      <div>
+          <p>Please answer the following question and do not use space, capital letters and use parentheses</p>
+
+          <img src="q1-2.jpg" alt="question1"><br>
+          <input name="answer 1" id="answer1"><br>
+          <img src="q2-2.jpg" alt="question2"><br>
+          <input name="answer 2" id="answer2"><br>
+          <img src="q3-2.jpg" alt="question3"><br>
+          <input name="answer 3" id="answer3"><br>
+          <button class="next-btn" id="Next1">Next</button>
+
+      </div>
+  </div>
+
+  <div class="slidecontainer" id="3rdp">
+      <p>Based on your opinion, please choose the most suitable answer</p>
+      <p>It was easy to pay attention during the test and lessons.</p>
+      <p align="center">  neither</p>
+      <p align="center">dissagree<input type="range" min="1" max="3" value="2" class="slider" id="myrange">agree</p>
+
+      <label>I had more than enough time to submit or complete the task.</label>
+      <p align="center">  neither</p>
+      <p align="center">dissagree<input type="range" min="1" max="3" value="2" class="slider" id="myrange2">agree</p>
+
+      <label>I felt confident during the lessons and the test.</label>
+      <p align="center">  neither</p>
+      <p align="center">dissagree<input type="range" min="1" max="3" value="2" class="slider" id="myrange5">agree</p>
+
+      <label>The questions and/or lessons were difficult.</label>
+      <p align="center">  neither</p>
+      <p align="center">dissagree<input type="range" min="1" max="3" value="2" class="slider" id="myrange1">agree</p>
+
+      <label>I was frustrated by the content of the materials and the test.</label>
+      <p align="center">  neither</p>
+      <p align="center">dissagree<input type="range" min="1" max="3" value="2" class="slider" id="myrange4">agree</p>
+
+      <label>I felt rushed to submit or complete the task.</label>
+      <p align="center">  neither</p>
+      <p align="center">dissagree<input type="range" min="1" max="3" value="2" class="slider" id="myrange3">agree</p>
+
+      <!--p>Please input the title of the video</p-->
+      <input type= "hidden" name="emotion" id="emotion" value = "">
+<!-- 
+  </div> -->
+
+  <!-- <div class="firstSet">
+
+
+      <p>To measure the weight of each dimension towards your total workload assestment, please choose the most suitable answer</p>
+
+      <label>During class I rather have more time to prcess information rather than paying attention all the time</label><br>
+      <p align="center">dissagree<input type="range" min ="1" max="2" value="0" class="slider" id="1st">agree</p>
+
+      <label>Mental Effort causes me to feel more burdened than time load during the task</label><br>
+      <p align="center">dissagree<input type="range" min ="1" max="2" value="0" class="slider" id="2nd">agree</p>
+
+      <label>Psycological strain causes me to feel more burdened than time load during the task</label><br>
+      <p align="center">dissagree<input type="range" min ="1" max="2" value="0" class="slider" id="3rd">agree</p>
+-->
+
+      <button class="save-btn" id="submit">Submit</button>
+  </div>
+
+
+</body></html>
